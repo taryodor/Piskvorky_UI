@@ -14,5 +14,8 @@ def test_tah_ai():
     vracena_hodnota_4 = Piskvorky_AI.tah_ai("---i-i---", "i", "g")
     assert vracena_hodnota_4 == 4
 
+    vracena_hodnota_5 = Piskvorky_AI.tah_ai("-g-g-i-i---", "i", "g")
+    assert vracena_hodnota_5 == 6
+
     with pytest.raises(ValueError):
         Piskvorky_AI.tah_ai("----", "x", "o")

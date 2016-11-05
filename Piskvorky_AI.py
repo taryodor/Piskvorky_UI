@@ -25,8 +25,10 @@ def tah_ai(pole, symbol_ai, symbol_eny):
 
     if symbol_ai not in pole and symbol_eny not in pole:#kontrola, ze hraci pole je prazdne
         if len(pole) == 6:
+            tah_rozhodnut = True
             return 2
         else:
+            tah_rozhodnut = True
             return random.choice((2, len(pole) - 4)) #2 tj. treti od zacatku a len-4 tj. treti od konce
             #kdyz bude pole moc kratke na poradne hrani, neva stale je toto nejlepsi volba
 
@@ -37,15 +39,26 @@ def tah_ai(pole, symbol_ai, symbol_eny):
         elif pole[i] == symbol_eny:
             seznam_hranych_eny_pozic.append(i)
 
+    #Tadz jdeme testovat, zdali nejsme jen jedne tah od vyhry, resp. prohry
     if len(seznam_hranych_ai_pozic) > 1 and tah_rozhodnut == False:
         pozice_ai_tahu = test_mezy_kozy(pole, symbol_ai)
+
+        tah_rozhodnut = True
         return pozice_ai_tahu
 
     if len(seznam_hranych_eny_pozic) > 1 and tah_rozhodnut == False:
         pozice_ai_tahu = test_mezy_kozy(pole, symbol_eny)
+        tah_rozhodnut = True
         return pozice_ai_tahu
+
+#jdeme na krajni pripady
+    if len(seznam_hranych_eny_pozic) = 1:
+        if seznam_hranych_eny_pozic[1] == 0:
+            pozice_ai_tahu = 2
+            tah_rozhodnut = True
+            return 2
 
     return pozice_ai_tahu
 
 
-#print(tah_ai("---x-x---xo-o--", "x", "o"))
+print(tah_ai("------", "o", "x"))
