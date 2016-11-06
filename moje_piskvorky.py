@@ -2,7 +2,7 @@
 Muj pokus o 1D piskvorky
 """
 from random import randint
-
+import Piskvorky_AI
 def vyhodnot(herni_pole):
     if "xxx" in herni_pole:
         return "x"
@@ -30,10 +30,10 @@ def tah_hrace(pole):
 def tah_pocitace(pole):
     pozice = -1
     while pozice < 0 or pozice >= len(pole) or pole[pozice] != "-":
-        pozice = randint(0, len(pole) - 1)
+        #puvodni nahoda pozice = randint(0, len(pole) - 1)
+        pozice = Piskvorky_AI.tah_ai(pole, "o", "x")
     return tah(pole, pozice, "o")
-"""
-vypnuto jen kvuli testovani
+
 def piskvorky1d():
     pole = '-' * 20
     i = 0
@@ -57,4 +57,3 @@ def piskvorky1d():
         i += 1
 
 piskvorky1d()
-"""
