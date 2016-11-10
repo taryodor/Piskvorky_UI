@@ -1,6 +1,6 @@
 import random
 
-def alt_piskvorky_ai(pole, ai_symbol, eny_symbol, volno_symbol):
+def alt_ai(pole, ai_symbol, eny_symbol, volno_symbol):
     seznam_priorit = []
     for i in range(8):
         seznam_priorit.append([])
@@ -75,12 +75,12 @@ def alt_piskvorky_ai(pole, ai_symbol, eny_symbol, volno_symbol):
             if pole[i-2]==eny_symbol and pole[i-1]==eny_symbol and pole[i]==volno_symbol:
                 seznam_priorit[6].append(i)
         #blokace eny mezy kozy
-        if i>0 and i<len(pole):
+        if i>0 and i<len(pole)-1:
             if pole[i-1]==eny_symbol and pole[i]==volno_symbol and pole[i+1]==eny_symbol:
                 seznam_priorit[6].append(i)
 
         #Moje hrani mezy kozy
-        if i>0 and i<len(pole):
+        if i>0 and i<len(pole)-1:
             if pole[i-1]==ai_symbol and pole[i]==volno_symbol and pole[i+1]==ai_symbol:
                 seznam_priorit[7].append(i)
         #dokonceni me dvoupozice vlevo
@@ -97,4 +97,4 @@ def alt_piskvorky_ai(pole, ai_symbol, eny_symbol, volno_symbol):
         if len(seznam_priorit[k]) > 0:
             return random.choice(seznam_priorit[k])
 
-print(alt_piskvorky_ai("--oo----x-xx--o-o--", "o", "x", "-"))
+#print(alt_piskvorky_ai("--oo----x-xx--o-o--", "o", "x", "-"))

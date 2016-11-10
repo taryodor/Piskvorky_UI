@@ -2,7 +2,9 @@
 Muj pokus o 1D piskvorky
 """
 from random import randint
+import alt_piskvorky_ai
 import Piskvorky_AI
+
 def vyhodnot(herni_pole):
     if "xxx" in herni_pole:
         return "x"
@@ -30,24 +32,26 @@ def tah_hrace(pole):
 def tah_pocitace(pole):
     pozice = -1
     while pozice < 0 or pozice >= len(pole) or pole[pozice] != "-":
-        #puvodni nahoda pozice = randint(0, len(pole) - 1)
-        pozice = Piskvorky_AI.tah_ai(pole, "o", "x")
+        pozice = randint(0, len(pole) - 1)
     return tah(pole, pozice, "o")
 
+
 def piskvorky1d():
-    pole = '-' * 20
+    pole = '-' * 41
     i = 0
     while True:
         if i % 2 == 0:
-            pole = tah_hrace(pole)
+            pole = tah(pole, alt_piskvorky_ai.alt_ai(pole, "x", "o", "-"), "x")
+            #pole = tah_hrace(pole)
         else:
-            pole = tah_pocitace(pole)
+            pole = tah(pole, Piskvorky_AI.tah_ai(pole, "o", "x"),"o")
+            (pole, Piskvorky_AI.tah_ai(pole, "o", "x"),"o")#pole = tah_pocitace(pole)
         print(pole)
 
         if vyhodnot(pole) == 'o':
-            print('Vyhrál počítač.')
+            print('Vyhrál alt.')
         elif vyhodnot(pole) == 'x':
-            print('Vyhrál jsi.')
+            print('Vyhrál puvodni.')
         elif vyhodnot(pole) == '!':
             print('Remíza!')
 
