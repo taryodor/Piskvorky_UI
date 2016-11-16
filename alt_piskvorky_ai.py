@@ -27,12 +27,24 @@ def overeni_pole_5_podminek_1_not(i, mensi_nez_i, pole, omezeni_pole , i1, i2, i
             x=random.choice(lokalni_seznam)
             return x
 
-def alt_ai(pole, ai_symbol, eny_symbol, volno_symbol):
+def alt_ai(pole, ai_symbol):
+    #Aby moje nadrazena AI fungovala i v podradnym algoritmu nasich koucu, musim tady udelat
+    #tuhle deklaraci, nebo jak to nazvat. Proste jde o to, aby pocitac vedel kdo je kdo
+    # je to takovy Identify Friend-Foe
+    if ai_symbol == "x":
+        eny_symbol = "o"
+    elif ai_symbol == "o":
+        eny_symbol = "x"
+    volno_symbol = "-"
+
     #Tady si vytvorim dvourozmerny seznam pro ukladani priorit hrani, cim vyssi 1. rozmer, tim spis by to progam mel hrat
     #Na konci algoritmu si nahodne vyberu ze seznamu s nejvyssi nalezenou prioritou
     seznam_priorit = []
     for i in range(8):
         seznam_priorit.append([])
+
+    if len(pole) < 5:
+        return None
 
     for i in range(0, len(pole)):#nejdriv testuju priority 1 a dva, tj. volne pozice resp. hratelne 3. poz od kraje
         #jen se ujistim, ze priorizovane pole bude mit tolik znaku, kolik potrebuji,
@@ -83,4 +95,17 @@ def alt_ai(pole, ai_symbol, eny_symbol, volno_symbol):
         if len(seznam_priorit[k]) > 0:
             return random.choice(seznam_priorit[k])
 
-#print(alt_ai("-o-o-o-oxx----x--", "o", "x", "-"))
+def tah_pocitace(hraci_pole, hrany_symbol):
+    #Snad spravne napsana funkce, ktera bude volana podradnym kapitalistickym kodem nasich
+    #koucu :-)
+    #Tato funkce prijimace neopracovane pole a symbol, kterym ma hrat
+    #Vraci opracovane pole
+    kam_s_nim = alt_ai(hraci_pole, hrany_symbol)
+    if kam_s_nim == None:
+        return hraci_pole
+    else:
+        return hraci_pole[:kam_s_nim] + hrany_symbol + hraci_pole[kam_s_nim+1:]
+
+
+
+#print(tah_pocitace("-----o-o---xx", "o"))

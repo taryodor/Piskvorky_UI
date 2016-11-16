@@ -77,7 +77,13 @@ def test_na_typ_pozice(pole, zajmovy_symbol):
             lokalni_seznam.append(i)
     return lokalni_seznam
 
-def tah_ai(pole, symbol_ai, symbol_eny):
+def tah_ai(pole, symbol_ai):
+    # je to takovy Identify Friend-Foe
+    if symbol_ai == "x":
+        symbol_eny = "o"
+    elif symbol_ai == "o":
+        symbol_eny = "x"
+    volno_symbol = "-"
     #AI pro tah pocitace
     #zacneme definicema seznamu
     seznam_hranych_ai_pozic = []
@@ -108,7 +114,9 @@ def tah_ai(pole, symbol_ai, symbol_eny):
     tah_rozhodnut = False
 
     if len(pole) < 5:
-        raise ValueError("Takhle kratke hraci pole si strcte do muslimske ctvrti.")
+        return None
+        #raise ValueError("Takhle kratke hraci pole si strcte do muslimske ctvrti.")
+        #Toto je, to by neproslo hodnocenim koucu
         #Nema smysl se otravovat s prilis kratkym polem. Howgh. pozn. zjisti si spelling Howgh.
     if symbol_ai not in pole and symbol_eny not in pole:
         #kontrola, ze hraci pole je prazdne
@@ -200,7 +208,19 @@ def tah_ai(pole, symbol_ai, symbol_eny):
     elif len(seznam_volnych_pozic) > 0:
         return random.choice(seznam_volnych_pozic)
     else:
-        raise ValueError("Neni kam hrat, melouni.")
+        return None
+        #raise ValueError("Neni kam hrat, melouni.")
+        #Toto ne, to by neproslo testem koucu
     #Toto je jen pro pripad, ze progrma nenajde misto, kam by mel hrat, tak to vrzne na nahodnou volnou pozici
 
-print("tah bude: ", tah_ai("oxxooxx-----------", "o", "x"))
+def tah_pocitace(hraci_pole, hrany_symbol):
+    #Tato funkce prijimace neopracovane pole a symbol, kterym ma hrat
+    #Vraci opracovane pole
+    kam_s_nim = tah_ai(hraci_pole, hrany_symbol)
+    if kam_s_nim == None:
+        return hraci_pole
+    else:
+        return hraci_pole[:kam_s_nim] + hrany_symbol + hraci_pole[kam_s_nim+1:]
+
+
+#print("tah bude: ", tah_pocitace("------------x-x---oo--o---o-o---", "o"))
